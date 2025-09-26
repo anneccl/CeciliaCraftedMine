@@ -12,7 +12,8 @@ namespace rl
 #include <rlgl.h>
 } // namespace rl
 
-enum BlockType
+typedef uint8_t BlockType;
+enum BLOCK_TYPE
 {
     BTYPE_AIR,
     BTYPE_DIRT,
