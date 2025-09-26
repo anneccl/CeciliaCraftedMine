@@ -1,0 +1,18 @@
+blockarray3d.o: blockarray3d.cpp blockarray3d.h define.h
+blockinfo.o: blockinfo.cpp blockinfo.h define.h
+chunk.o: chunk.cpp chunk.h blockarray3d.h define.h
+define.o: define.cpp define.h rlights.h
+engine.o: engine.cpp engine.h define.h vector3.h
+game.o: game.cpp game.h blockinfo.h define.h chunk.h blockarray3d.h \
+ engine.h vector3.h mesh.h texture.h shader.h transformation.h matrix4.h \
+ player.h rlights.h
+main.o: main.cpp game.h blockinfo.h define.h chunk.h blockarray3d.h \
+ engine.h vector3.h mesh.h texture.h shader.h transformation.h matrix4.h \
+ player.h rlights.h
+mesh.o: mesh.cpp mesh.h define.h texture.h shader.h transformation.h \
+ matrix4.h vector3.h
+player.o: player.cpp player.h define.h vector3.h
+shader.o: shader.cpp shader.h define.h
+texture.o: texture.cpp texture.h define.h
+transformation.o: transformation.cpp transformation.h matrix4.h define.h \
+ vector3.h
