@@ -31,6 +31,7 @@ public:
 
 private:
     Mesh m_meshFloor;
+    Mesh m_meshCube;
 
     Texture m_textureBlue;
 

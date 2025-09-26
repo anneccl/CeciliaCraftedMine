@@ -1,4 +1,5 @@
 #include "game.h"
+#include <cmath>
 
 Game::Game() : m_player(Vector3f(0, 0, 0), 0, -90.f)
 {
@@ -49,6 +50,29 @@ void Game::LoadResource()
 
     rl::Vector3 lightPos = {0, CHUNK_SIZE_Y, 0};
     lights[0] = CreateLight(LIGHT_POINT, lightPos, rl::Vector3Zero(), rl::WHITE, m_shader);
+
+    // Face avant du cube 
+    // 4-------------3
+    // | \           |
+    // |   \         |
+    // |     \       |
+    // |       \     |
+    // |         \   |
+    // |           \ |
+    // 1-------------2
+
+    vd = new Mesh::VertexData[6];
+    count = 0;
+
+    vd[count++] = Mesh::VertexData(-.5f, -.5f, 0, 0, 0, 1.f, 1.f, 1.f, 1.f, 0, 0); //1
+    vd[count++] = Mesh::VertexData(.5f, -.5f, 0, 0, 0, 1.f, 1.f, 1.f, 1.f, 1.f, 0); //2
+    vd[count++] = Mesh::VertexData(-.5f, .5f, 0, 0, 0, 1.f, 1.f, 1.f, 1.f, 0, 1.f); //4
+    vd[count++] = Mesh::VertexData(.5f, -.5f, 0, 0, 0, 1.f, 1.f, 1.f, 1.f, 1.f, 0); //2
+    vd[count++] = Mesh::VertexData(.5f, .5f, 0, 0, 0, 1.f, 1.f, 1.f, 1.f, 1.f, 1.f); //3
+    vd[count++] = Mesh::VertexData(-.5f, .5f, 0, 0, 0, 1.f, 1.f, 1.f, 1.f, 0, 1.f); //4
+
+    m_meshCube.SetMeshData(vd,count);
+    delete vd;
 }
 
 void Game::UnloadResource()
@@ -73,6 +97,17 @@ void Game::Render3D(float elapsedTime)
     gameTime += elapsedTime;
 
     m_meshFloor.Render(m_textureBlue, m_shader);
+
+    Transformation t;
+    t.ApplyTranslation(0, 0, -3.f);
+    t.ApplyTranslation(sin(gameTime), 0,0);
+    t.ApplyRotation(gameTime* 50, 0,0,1);
+    static float facteur = 1.f;
+    if(facteur >0)
+        facteur -= .1f *elapsedTime;
+       
+    t.ApplyScale(facteur,facteur,facteur);
+    m_meshCube.Render(m_textureBlue, m_shader, t);
 }
 
 void Game::Render2D(float elapsedTime)
