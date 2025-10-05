@@ -34,6 +34,7 @@ private:
     Mesh m_meshCube;
 
     Texture m_textureBlue;
+    Texture m_textureFloral;
 
     Shader m_shader;
     Light lights[MAX_LIGHTS] = {};

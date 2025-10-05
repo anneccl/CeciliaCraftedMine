@@ -46,12 +46,13 @@ void Game::LoadResource()
     delete[] vd;
 
     m_textureBlue.Load("checkerblue.png");
+    m_textureFloral.Load("texturefloral.png");
     m_shader.Load("shader.vs", "shader.fs");
 
     rl::Vector3 lightPos = {0, CHUNK_SIZE_Y, 0};
     lights[0] = CreateLight(LIGHT_POINT, lightPos, rl::Vector3Zero(), rl::WHITE, m_shader);
 
-    // Face avant du cube 
+    
     // 4-------------3
     // | \           |
     // |   \         |
@@ -61,16 +62,57 @@ void Game::LoadResource()
     // |           \ |
     // 1-------------2
 
-    vd = new Mesh::VertexData[6];
+    vd = new Mesh::VertexData[36];
     count = 0;
 
-    vd[count++] = Mesh::VertexData(-.5f, -.5f, 0, 0, 0, 1.f, 1.f, 1.f, 1.f, 0, 0); //1
-    vd[count++] = Mesh::VertexData(.5f, -.5f, 0, 0, 0, 1.f, 1.f, 1.f, 1.f, 1.f, 0); //2
-    vd[count++] = Mesh::VertexData(-.5f, .5f, 0, 0, 0, 1.f, 1.f, 1.f, 1.f, 0, 1.f); //4
-    vd[count++] = Mesh::VertexData(.5f, -.5f, 0, 0, 0, 1.f, 1.f, 1.f, 1.f, 1.f, 0); //2
-    vd[count++] = Mesh::VertexData(.5f, .5f, 0, 0, 0, 1.f, 1.f, 1.f, 1.f, 1.f, 1.f); //3
-    vd[count++] = Mesh::VertexData(-.5f, .5f, 0, 0, 0, 1.f, 1.f, 1.f, 1.f, 0, 1.f); //4
+    // Face avant du cube 
+    vd[count++] = Mesh::VertexData(-.5f, -.5f, .5f, 0, 0, 1.f, 1.f, 1.f, 1.f, 0, 0); //1
+    vd[count++] = Mesh::VertexData(.5f, -.5f, .5f, 0, 0, 1.f, 1.f, 1.f, 1.f, 1.f, 0); //2
+    vd[count++] = Mesh::VertexData(-.5f, .5f, .5f, 0, 0, 1.f, 1.f, 1.f, 1.f, 0, 1.f); //4
+    vd[count++] = Mesh::VertexData(.5f, -.5f, .5f, 0, 0, 1.f, 1.f, 1.f, 1.f, 1.f, 0); //2
+    vd[count++] = Mesh::VertexData(.5f, .5f, .5f, 0, 0, 1.f, 1.f, 1.f, 1.f, 1.f, 1.f); //3
+    vd[count++] = Mesh::VertexData(-.5f, .5f, .5f, 0, 0, 1.f, 1.f, 1.f, 1.f, 0, 1.f); //4
 
+    // Face droite du cube 
+    vd[count++] = Mesh::VertexData(.5f, -.5f, .5f, 1.f, 0, 0, 1.f, 1.f, 1.f, 0, 0); //1
+    vd[count++] = Mesh::VertexData(.5f, -.5f, -.5f, 1.f, 0, 0, 1.f, 1.f, 1.f, 1.f, 0); //2
+    vd[count++] = Mesh::VertexData(.5f, .5f, .5f, 1.f, 0, 0, 1.f, 1.f, 1.f, 0, 1.f); //4
+    vd[count++] = Mesh::VertexData(.5f, -.5f, -.5f, 1.f, 0, 0, 1.f, 1.f, 1.f, 1.f, 0); //2
+    vd[count++] = Mesh::VertexData(.5f, .5f, -.5, 1.f, 0, 0, 1.f, 1.f, 1.f, 1.f, 1.f); //3
+    vd[count++] = Mesh::VertexData(.5f, .5f, .5f, 1.f, 0, 0, 1.f, 1.f, 1.f, 0, 1.f); //4
+
+    // Face gauche du cube 
+    vd[count++] = Mesh::VertexData(-.5f, -.5f, -.5f, -1.f, 0, 0, 1.f, 1.f, 1.f, 0, 0); //1
+    vd[count++] = Mesh::VertexData(-.5f, -.5f, .5f, -1.f, 0, 0, 1.f, 1.f, 1.f, 1.f, 0); //2
+    vd[count++] = Mesh::VertexData(-.5f, .5f, -.5f, -1.f, 0, 0, 1.f, 1.f, 1.f, 0, 1.f); //4
+    vd[count++] = Mesh::VertexData(-.5f, -.5f, .5f, -1.f, 0, 0, 1.f, 1.f, 1.f, 1.f, 0); //2
+    vd[count++] = Mesh::VertexData(-.5f, .5f, .5f, -1.f, 0, 0, 1.f, 1.f, 1.f, 1.f, 1.f); //3
+    vd[count++] = Mesh::VertexData(-.5f, .5f, -.5f, -1.f, 0, 0, 1.f, 1.f, 1.f, 0, 1.f); //4
+
+    // Face arriere du cube 
+    vd[count++] = Mesh::VertexData(-.5f, -.5f, -.5f, 0, 0, -1.f, 1.f, 1.f, 1.f, 0, 0); //1
+    vd[count++] = Mesh::VertexData(.5f, -.5f, -.5f, 0, 0, -1.f, 1.f, 1.f, 1.f, 1.f, 0); //2
+    vd[count++] = Mesh::VertexData(-.5f, .5f, -.5f, 0, 0, -1.f, 1.f, 1.f, 1.f, 0, 1.f); //4
+    vd[count++] = Mesh::VertexData(.5f, -.5f, -.5f, 0, 0, -1.f, 1.f, 1.f, 1.f, 1.f, 0); //2
+    vd[count++] = Mesh::VertexData(.5f, .5f, -.5f, 0, 0, -1.f, 1.f, 1.f, 1.f, 1.f, 1.f); //3
+    vd[count++] = Mesh::VertexData(-.5f, .5f, -.5f, 0, 0, -1.f, 1.f, 1.f, 1.f, 0, 1.f); //4
+
+    // Face dessus du cube 
+    vd[count++] = Mesh::VertexData(-.5f, .5f, .5f, 0, 1.f, 0, 1.f, 1.f, 1.f, 0, 0); //1
+    vd[count++] = Mesh::VertexData(.5f, .5f, .5f, 0, 1.f, 0, 1.f, 1.f, 1.f, 1.f, 0); //2
+    vd[count++] = Mesh::VertexData(-.5f, .5f, -.5f, 0, 1.f, 0, 1.f, 1.f, 1.f, 0, 1.f); //4
+    vd[count++] = Mesh::VertexData(.5f, .5f, .5f, 0, 1.f, 0, 1.f, 1.f, 1.f, 1.f, 0); //2
+    vd[count++] = Mesh::VertexData(.5f, .5f, -.5f, 0, 1.f, 0, 1.f, 1.f, 1.f, 1.f, 1.f); //3
+    vd[count++] = Mesh::VertexData(-.5f, .5f, -.5f, 0, 1.f, 0, 1.f, 1.f, 1.f, 0, 1.f); //4
+
+    // Face dessous du cube 
+    vd[count++] = Mesh::VertexData(-.5f, -.5f, .5f, 0, -1.f, 0, 1.f, 1.f, 1.f, 0, 0); //1
+    vd[count++] = Mesh::VertexData(.5f, -.5f, .5f, 0, -1.f, 0, 1.f, 1.f, 1.f, 1.f, 0); //2
+    vd[count++] = Mesh::VertexData(-.5f, -.5f, -.5f, 0, -1.f, 0, 1.f, 1.f, 1.f, 0, 1.f); //4
+    vd[count++] = Mesh::VertexData(.5f, -.5f, .5f, 0, -1.f, 0, 1.f, 1.f, 1.f, 1.f, 0); //2
+    vd[count++] = Mesh::VertexData(.5f, -.5f, -.5f, 0, -1.f, 0, 1.f, 1.f, 1.f, 1.f, 1.f); //3
+    vd[count++] = Mesh::VertexData(-.5f, -.5f, -.5f, 0, -1.f, 0, 1.f, 1.f, 1.f, 0, 1.f); //4
+    
     m_meshCube.SetMeshData(vd,count);
     delete vd;
 }
@@ -100,14 +142,18 @@ void Game::Render3D(float elapsedTime)
 
     Transformation t;
     t.ApplyTranslation(0, 0, -3.f);
-    t.ApplyTranslation(sin(gameTime), 0,0);
-    t.ApplyRotation(gameTime* 50, 0,0,1);
-    static float facteur = 1.f;
-    if(facteur >0)
-        facteur -= .1f *elapsedTime;
+    t.ApplyRotation(gameTime * 30.f, 1.f, 0.f, 0.f); // X
+    t.ApplyRotation(gameTime * 47.f, 0.f, 1.f, 0.f); // Y
+    t.ApplyRotation(gameTime * 61.f, 0.f, 0.f, 1.f); // Z
+
+    // t.ApplyTranslation(sin(gameTime), 0,0);
+    // t.ApplyRotation(gameTime* 50, 0,0,1);
+    // static float facteur = 1.f;
+    // if(facteur >0)
+    //     facteur -= .1f *elapsedTime;
        
-    t.ApplyScale(facteur,facteur,facteur);
-    m_meshCube.Render(m_textureBlue, m_shader, t);
+    //t.ApplyScale(facteur,facteur,facteur);
+    m_meshCube.Render(m_textureFloral, m_shader, t);
 }
 
 void Game::Render2D(float elapsedTime)
