@@ -1,4 +1,3 @@
-array3d.o: array3d.cpp array3d.h define.h
 blockinfo.o: blockinfo.cpp blockinfo.h define.h
 chunk.o: chunk.cpp chunk.h array3d.h define.h
 define.o: define.cpp define.h rlights.h
