@@ -11,10 +11,10 @@ public:
     ~Array3d();
     Array3d(const Array3d &other);
 
-    void Set(int x, int y, int z, const T&);
+    void Set(int x, int y, int z, const T& value);
     const T& Get(int x, int y, int z) const;
 
-    void Reset(const T&);
+    void Reset(const T& value );
 
 private:
     int GetIndex(int x, int y, int z) const;
@@ -26,7 +26,7 @@ template <class T>
 Array3d<T>::Array3d(int x, int y, int z)
 {
     m_blocks = new T[x * y * z];
-    Reset(T{});
+    Reset(T());
 }
 
 template <class T>
@@ -44,9 +44,9 @@ Array3d<T>::Array3d(const Array3d &other)
 }
 
 template <class T>
-void Array3d<T>::Set(int x, int y, int z, const T&)
+void Array3d<T>::Set(int x, int y, int z, const T& value )
 {
-    m_blocks[GetIndex(x, y, z)] = T();
+    m_blocks[GetIndex(x, y, z)] = value ;
 }
 
 template <class T>
@@ -56,10 +56,10 @@ const T& Array3d<T>::Get(int x, int y, int z) const
 }
 
 template <class T>
-void Array3d<T>::Reset(const T&)
+void Array3d<T>::Reset(const T& value )
 {
     for(int i = 0; i < m_x * m_y * m_z; i++)
-        m_blocks[i] = T();
+        m_blocks[i] = value;
 }
 
 template <class T>
