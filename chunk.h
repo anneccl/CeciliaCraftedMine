@@ -1,7 +1,7 @@
 #ifndef CHUNK_H
 #define CHUNK_H
 
-#include "blockarray3d.h"
+#include "array3d.h"
 
 class Chunk 
 {
@@ -13,7 +13,7 @@ public:
     BlockType GetBlock(int x, int y, int z) const;
 
     private: 
-    BlockArray3d m_blocks;
+    Array3d<BlockType> m_blocks;
 };
 
 #endif /* CHUNK_H */
