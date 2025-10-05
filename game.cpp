@@ -90,12 +90,12 @@ void Game::LoadResource()
     vd[count++] = Mesh::VertexData(-.5f, .5f, -.5f, -1.f, 0, 0, 1.f, 1.f, 1.f, 0, 1.f); //4
 
     // Face arriere du cube 
-    vd[count++] = Mesh::VertexData(-.5f, -.5f, -.5f, 0, 0, -1.f, 1.f, 1.f, 1.f, 0, 0); //1
-    vd[count++] = Mesh::VertexData(.5f, -.5f, -.5f, 0, 0, -1.f, 1.f, 1.f, 1.f, 1.f, 0); //2
-    vd[count++] = Mesh::VertexData(-.5f, .5f, -.5f, 0, 0, -1.f, 1.f, 1.f, 1.f, 0, 1.f); //4
-    vd[count++] = Mesh::VertexData(.5f, -.5f, -.5f, 0, 0, -1.f, 1.f, 1.f, 1.f, 1.f, 0); //2
-    vd[count++] = Mesh::VertexData(.5f, .5f, -.5f, 0, 0, -1.f, 1.f, 1.f, 1.f, 1.f, 1.f); //3
-    vd[count++] = Mesh::VertexData(-.5f, .5f, -.5f, 0, 0, -1.f, 1.f, 1.f, 1.f, 0, 1.f); //4
+    vd[count++] = Mesh::VertexData(-.5f, -.5f, -.5f, 0, 0, -1.f, 1.f, 1.f, 1.f, 0,   0); // 1
+    vd[count++] = Mesh::VertexData(-.5f,  .5f, -.5f, 0, 0, -1.f, 1.f, 1.f, 1.f, 0,   1.f); // 4
+    vd[count++] = Mesh::VertexData( .5f, -.5f, -.5f, 0, 0, -1.f, 1.f, 1.f, 1.f, 1.f, 0);   // 2
+    vd[count++] = Mesh::VertexData( .5f, -.5f, -.5f, 0, 0, -1.f, 1.f, 1.f, 1.f, 1.f, 0);   // 2
+    vd[count++] = Mesh::VertexData(-.5f,  .5f, -.5f, 0, 0, -1.f, 1.f, 1.f, 1.f, 0,   1.f); // 4
+    vd[count++] = Mesh::VertexData( .5f,  .5f, -.5f, 0, 0, -1.f, 1.f, 1.f, 1.f, 1.f, 1.f); // 3
 
     // Face dessus du cube 
     vd[count++] = Mesh::VertexData(-.5f, .5f, .5f, 0, 1.f, 0, 1.f, 1.f, 1.f, 0, 0); //1
@@ -106,12 +106,12 @@ void Game::LoadResource()
     vd[count++] = Mesh::VertexData(-.5f, .5f, -.5f, 0, 1.f, 0, 1.f, 1.f, 1.f, 0, 1.f); //4
 
     // Face dessous du cube 
-    vd[count++] = Mesh::VertexData(-.5f, -.5f, .5f, 0, -1.f, 0, 1.f, 1.f, 1.f, 0, 0); //1
-    vd[count++] = Mesh::VertexData(.5f, -.5f, .5f, 0, -1.f, 0, 1.f, 1.f, 1.f, 1.f, 0); //2
-    vd[count++] = Mesh::VertexData(-.5f, -.5f, -.5f, 0, -1.f, 0, 1.f, 1.f, 1.f, 0, 1.f); //4
-    vd[count++] = Mesh::VertexData(.5f, -.5f, .5f, 0, -1.f, 0, 1.f, 1.f, 1.f, 1.f, 0); //2
-    vd[count++] = Mesh::VertexData(.5f, -.5f, -.5f, 0, -1.f, 0, 1.f, 1.f, 1.f, 1.f, 1.f); //3
-    vd[count++] = Mesh::VertexData(-.5f, -.5f, -.5f, 0, -1.f, 0, 1.f, 1.f, 1.f, 0, 1.f); //4
+    vd[count++] = Mesh::VertexData(-.5f, -.5f,  .5f, 0, -1.f, 0, 1.f, 1.f, 1.f, 0,   0);   // 1
+    vd[count++] = Mesh::VertexData(-.5f, -.5f, -.5f, 0, -1.f, 0, 1.f, 1.f, 1.f, 0,   1.f); // 4
+    vd[count++] = Mesh::VertexData( .5f, -.5f,  .5f, 0, -1.f, 0, 1.f, 1.f, 1.f, 1.f, 0);   // 2
+    vd[count++] = Mesh::VertexData( .5f, -.5f,  .5f, 0, -1.f, 0, 1.f, 1.f, 1.f, 1.f, 0);   // 2
+    vd[count++] = Mesh::VertexData(-.5f, -.5f, -.5f, 0, -1.f, 0, 1.f, 1.f, 1.f, 0,   1.f); // 4
+    vd[count++] = Mesh::VertexData( .5f, -.5f, -.5f, 0, -1.f, 0, 1.f, 1.f, 1.f, 1.f, 1.f); // 3
     
     m_meshCube.SetMeshData(vd,count);
     delete vd;
