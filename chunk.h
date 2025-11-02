@@ -14,6 +14,7 @@ public:
 
     private: 
     Array3d<BlockType> m_blocks;
+    Mesh m_Mesh;
 };
 
 #endif /* CHUNK_H */
