@@ -23,5 +23,6 @@ enum BLOCK_TYPE
 #define CHUNK_SIZE_X 16
 #define CHUNK_SIZE_Y 128
 #define CHUNK_SIZE_Z 16
+#define VIEW_DISTANCE 64
 
 #endif
