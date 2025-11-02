@@ -32,14 +32,22 @@ public:
 private:
     Mesh m_meshFloor;
     Mesh m_meshCube;
+    Mesh m_meshsmallCube1;
 
     Texture m_textureBlue;
     Texture m_textureFloral;
+    Texture m_textureDirt1;
 
     Shader m_shader;
     Light lights[MAX_LIGHTS] = {};
 
     Player m_player;
+    bool m_firstmouse = true;
+    int m_LastmouseX, m_LastmouseY ;
+    bool m_fly =false;
+
+
+    void CubeMaker(Mesh::VertexData *vd, float dimension, Mesh& cube);
 };
 
 #endif /* GAME_H */
