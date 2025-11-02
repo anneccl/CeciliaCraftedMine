@@ -41,6 +41,7 @@ private:
     Light lights[MAX_LIGHTS] = {};
 
     Player m_player;
+    bool m_fly = false;
     bool m_firstmouse = true;
     int m_LastmouseX, m_LastmouseY ;
     bool m_fly =false;

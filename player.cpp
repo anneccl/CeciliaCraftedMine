@@ -128,3 +128,32 @@ void Player::UpdateCameraVectors()
     m_up = m_right.Cross(m_front);
     m_up.Normalize(); // glm::normalize(glm::cross(Right, Front));
 }
+
+// Démarre un saut si le joueur n'est pas déjà en train de sauter.
+void Player::Jump()
+{
+    if(!m_isJumping){
+        m_verticalSpeed = 5.0f; 
+        m_isJumping = true;
+    }
+}
+ // Vérifie si le joueur est au sol.
+bool Player::IsOnGround() const
+{
+    return m_position.y <=m_groundHeight +0.01f;
+}
+// Met à jour la position verticale du joueur en fonction de la gravité et du temps écoulé.
+void Player::UpdateJump(float elapsedTime)
+{
+     if (m_isJumping) {
+        m_verticalSpeed -= 9.8f * elapsedTime; 
+        m_position.y += m_verticalSpeed * elapsedTime;
+
+
+        if (m_position.y < m_groundHeight) {
+            m_position.y = m_groundHeight;
+            m_verticalSpeed = 0.0f;
+            m_isJumping = false;
+        }
+    }
+}

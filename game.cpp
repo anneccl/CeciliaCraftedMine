@@ -82,12 +82,16 @@ rl::Camera3D Game::Update(float elapsedTime)
         rl::IsKeyDown(rl::KEY_S),
         rl::IsKeyDown(rl::KEY_A),
         rl::IsKeyDown(rl::KEY_D),
-        false,
+        rl::IsKeyDown(rl::KEY_LEFT_SHIFT),
         m_fly,
         elapsedTime
     );
     m_player.SetPosition(pos+delta);
-
+     if (rl::IsKeyDown(rl::KEY_SPACE) && m_player.IsOnGround())
+    {
+        m_player.Jump();
+    }
+    m_player.UpdateJump(elapsedTime);
     UpdateLightValues(m_shader, lights[0]);
 
     const rl::Camera3D &camera = m_player.GetCamera();
@@ -105,7 +109,7 @@ void Game::Render3D(float elapsedTime)
 
     Transformation t;
     t.ApplyTranslation(0, 10.f, 0);
-    m_chunk.Render(m_textureDirt1, m_shader,t);
+    m_chunk.Render(m_textureFloral, m_shader,t);
     
 }
 

@@ -3,6 +3,7 @@
 
 #include "define.h"
 #include "vector3.h"
+#include <cmath>
 class Player
 {
 public:
@@ -21,6 +22,11 @@ public:
 
     void SetViewAngle(const float rotX, const float rotY);
 
+    // Méthode pour le saut.
+    void Jump();
+    bool IsOnGround() const;
+    void UpdateJump(float elapsedTime);
+
 private:
     void UpdateCameraVectors();
 
@@ -29,6 +35,10 @@ private:
     float m_rotX, m_rotY;
 
     rl::Camera3D m_camera;
+
+    bool m_isJumping = false;
+    float m_verticalSpeed = 0.0f;
+    float m_groundHeight = 0.0f;
 };
 
 #endif /* PLAYER_H */
