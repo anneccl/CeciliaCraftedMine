@@ -3,6 +3,7 @@
 
 #include "blockinfo.h"
 #include "chunk.h"
+#include "array2d.h"
 #include "define.h"
 #include "engine.h"
 #include "mesh.h"
@@ -32,6 +33,7 @@ public:
 private:
     Mesh m_meshFloor;
     Chunk m_chunk;
+    Array2d<Chunk*> m_chunks;
 
     Texture m_textureBlue;
     Texture m_textureFloral;

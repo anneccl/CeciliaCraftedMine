@@ -74,36 +74,36 @@ bool Chunk::IsDirty() const
 void Chunk::AddBlockToMesh(Mesh::VertexData *vd, int &count, BlockType bt, int x, int y, int z)
 {
     // front
-    vd[count++] = Mesh::VertexData(x + -.5f, y + -.5f, z + .5f, 0, 0, 1, 1, 1, 1, 0, 0);
-    vd[count++] = Mesh::VertexData(x + .5f, y + -.5f, z + .5f, 0, 0, 1, 1, 1, 1, 1, 0);
-    vd[count++] = Mesh::VertexData(x + -.5f, y + .5f, z + .5f, 0, 0, 1, 1, 1, 1, 0, 1);
-    vd[count++] = Mesh::VertexData(x + -.5f, y + .5f, z + .5f, 0, 0, 1, 1, 1, 1, 0, 1);
-    vd[count++] = Mesh::VertexData(x + .5f, y + -.5f, z + .5f, 0, 0, 1, 1, 1, 1, 1, 0);
-    vd[count++] = Mesh::VertexData(x + .5f, y + .5f, z + .5f, 0, 0, 1, 1, 1, 1, 1, 1);
+    vd[count++] = Mesh::VertexData(x + -.5f, y + -.5f, z + .5f, 0, 0, 1, .8f, .8f, .8f, 0, 0);
+    vd[count++] = Mesh::VertexData(x + .5f, y + -.5f, z + .5f, 0, 0, 1, .8f, .8f, .8f, 1, 0);
+    vd[count++] = Mesh::VertexData(x + -.5f, y + .5f, z + .5f, 0, 0, 1, .8f, .8f, .8f, 0, 1);
+    vd[count++] = Mesh::VertexData(x + -.5f, y + .5f, z + .5f, 0, 0, 1, .8f, .8f, .8f, 0, 1);
+    vd[count++] = Mesh::VertexData(x + .5f, y + -.5f, z + .5f, 0, 0, 1, .8f, .8f, .8f, 1, 0);
+    vd[count++] = Mesh::VertexData(x + .5f, y + .5f, z + .5f, 0, 0, 1, .8f, .8f, .8f, 1, 1);
 
     // back
-    vd[count++] = Mesh::VertexData(x - 0.5f, y - 0.5f, z - 0.5f, 0, 0, -1, 1, 1, 1, 0, 0);
-    vd[count++] = Mesh::VertexData(x - 0.5f, y + 0.5f, z - 0.5f, 0, 0, -1, 1, 1, 1, 0, 1);
-    vd[count++] = Mesh::VertexData(x + 0.5f, y - 0.5f, z - 0.5f, 0, 0, -1, 1, 1, 1, 1, 0);
-    vd[count++] = Mesh::VertexData(x + 0.5f, y - 0.5f, z - 0.5f, 0, 0, -1, 1, 1, 1, 1, 0);
-    vd[count++] = Mesh::VertexData(x - 0.5f, y + 0.5f, z - 0.5f, 0, 0, -1, 1, 1, 1, 0, 1);
-    vd[count++] = Mesh::VertexData(x + 0.5f, y + 0.5f, z - 0.5f, 0, 0, -1, 1, 1, 1, 1, 1);
+    vd[count++] = Mesh::VertexData(x - 0.5f, y - 0.5f, z - 0.5f, 0, 0, -1, .8f, .8f, .8f, 0, 0);
+    vd[count++] = Mesh::VertexData(x - 0.5f, y + 0.5f, z - 0.5f, 0, 0, -1, .8f, .8f, .8f, 0, 1);
+    vd[count++] = Mesh::VertexData(x + 0.5f, y - 0.5f, z - 0.5f, 0, 0, -1, .8f, .8f, .8f, 1, 0);
+    vd[count++] = Mesh::VertexData(x + 0.5f, y - 0.5f, z - 0.5f, 0, 0, -1, .8f, .8f, .8f, 1, 0);
+    vd[count++] = Mesh::VertexData(x - 0.5f, y + 0.5f, z - 0.5f, 0, 0, -1, .8f, .8f, .8f, 0, 1);
+    vd[count++] = Mesh::VertexData(x + 0.5f, y + 0.5f, z - 0.5f, 0, 0, -1, .8f, .8f, .8f, 1, 1);
 
     // right
-    vd[count++] = Mesh::VertexData(x + 0.5f, y - 0.5f, z + 0.5f, 1, 0, 0, 1, 1, 1, 0, 0);
-    vd[count++] = Mesh::VertexData(x + 0.5f, y - 0.5f, z - 0.5f, 1, 0, 0, 1, 1, 1, 1, 0);
-    vd[count++] = Mesh::VertexData(x + 0.5f, y + 0.5f, z + 0.5f, 1, 0, 0, 1, 1, 1, 0, 1);
-    vd[count++] = Mesh::VertexData(x + 0.5f, y - 0.5f, z - 0.5f, 1, 0, 0, 1, 1, 1, 1, 0);
-    vd[count++] = Mesh::VertexData(x + 0.5f, y + 0.5f, z - 0.5f, 1, 0, 0, 1, 1, 1, 1, 1);
-    vd[count++] = Mesh::VertexData(x + 0.5f, y + 0.5f, z + 0.5f, 1, 0, 0, 1, 1, 1, 0, 1);
+    vd[count++] = Mesh::VertexData(x + 0.5f, y - 0.5f, z + 0.5f, 1, 0, 0, .9f, .9f, .9f, 0, 0);
+    vd[count++] = Mesh::VertexData(x + 0.5f, y - 0.5f, z - 0.5f, 1, 0, 0, .9f, .9f, .9f, 1, 0);
+    vd[count++] = Mesh::VertexData(x + 0.5f, y + 0.5f, z + 0.5f, 1, 0, 0, .9f, .9f, .9f, 0, 1);
+    vd[count++] = Mesh::VertexData(x + 0.5f, y - 0.5f, z - 0.5f, 1, 0, 0, .9f, .9f, .9f, 1, 0);
+    vd[count++] = Mesh::VertexData(x + 0.5f, y + 0.5f, z - 0.5f, 1, 0, 0, .9f, .9f, .9f, 1, 1);
+    vd[count++] = Mesh::VertexData(x + 0.5f, y + 0.5f, z + 0.5f, 1, 0, 0, .9f, .9f, .9f, 0, 1);
 
     // left
-    vd[count++] = Mesh::VertexData(x - 0.5f, y - 0.5f, z - 0.5f, -1, 0, 0, 1, 1, 1, 0, 0);
-    vd[count++] = Mesh::VertexData(x - 0.5f, y - 0.5f, z + 0.5f, -1, 0, 0, 1, 1, 1, 1, 0);
-    vd[count++] = Mesh::VertexData(x - 0.5f, y + 0.5f, z - 0.5f, -1, 0, 0, 1, 1, 1, 0, 1);
-    vd[count++] = Mesh::VertexData(x - 0.5f, y - 0.5f, z + 0.5f, -1, 0, 0, 1, 1, 1, 1, 0);
-    vd[count++] = Mesh::VertexData(x - 0.5f, y + 0.5f, z + 0.5f, -1, 0, 0, 1, 1, 1, 1, 1);
-    vd[count++] = Mesh::VertexData(x - 0.5f, y + 0.5f, z - 0.5f, -1, 0, 0, 1, 1, 1, 0, 1);
+    vd[count++] = Mesh::VertexData(x - 0.5f, y - 0.5f, z - 0.5f, -1, 0, 0, .9f, .9f, .9f, 0, 0);
+    vd[count++] = Mesh::VertexData(x - 0.5f, y - 0.5f, z + 0.5f, -1, 0, 0, .9f, .9f, .9f, 1, 0);
+    vd[count++] = Mesh::VertexData(x - 0.5f, y + 0.5f, z - 0.5f, -1, 0, 0, .9f, .9f, .9f, 0, 1);
+    vd[count++] = Mesh::VertexData(x - 0.5f, y - 0.5f, z + 0.5f, -1, 0, 0, .9f, .9f, .9f, 1, 0);
+    vd[count++] = Mesh::VertexData(x - 0.5f, y + 0.5f, z + 0.5f, -1, 0, 0, .9f, .9f, .9f, 1, 1);
+    vd[count++] = Mesh::VertexData(x - 0.5f, y + 0.5f, z - 0.5f, -1, 0, 0, .9f, .9f, .9f, 0, 1);
 
     // top
     vd[count++] = Mesh::VertexData(x - 0.5f, y + 0.5f, z + 0.5f, 0, 1, 0, 1, 1, 1, 0, 0);
