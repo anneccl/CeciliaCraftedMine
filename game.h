@@ -31,8 +31,7 @@ public:
 
 private:
     Mesh m_meshFloor;
-    Mesh m_meshCube;
-    Mesh m_meshsmallCube1;
+    Chunk m_chunk;
 
     Texture m_textureBlue;
     Texture m_textureFloral;
@@ -47,7 +46,7 @@ private:
     bool m_fly =false;
 
 
-    void CubeMaker(Mesh::VertexData *vd, float dimension, Mesh& cube);
+    //void CubeMaker(Mesh::VertexData *vd, float dimension, Mesh& cube);
 };
 
 #endif /* GAME_H */

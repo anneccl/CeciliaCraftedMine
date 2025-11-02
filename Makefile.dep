@@ -1,13 +1,14 @@
 blockinfo.o: blockinfo.cpp blockinfo.h define.h
-chunk.o: chunk.cpp chunk.h array3d.h define.h
+chunk.o: chunk.cpp chunk.h array3d.h mesh.h define.h texture.h shader.h \
+ transformation.h matrix4.h vector3.h
 define.o: define.cpp define.h rlights.h
 engine.o: engine.cpp engine.h define.h vector3.h
-game.o: game.cpp game.h blockinfo.h define.h chunk.h array3d.h engine.h \
- vector3.h mesh.h texture.h shader.h transformation.h matrix4.h player.h \
- rlights.h
-main.o: main.cpp game.h blockinfo.h define.h chunk.h array3d.h engine.h \
- vector3.h mesh.h texture.h shader.h transformation.h matrix4.h player.h \
- rlights.h
+game.o: game.cpp game.h blockinfo.h define.h chunk.h array3d.h mesh.h \
+ texture.h shader.h transformation.h matrix4.h vector3.h engine.h \
+ player.h rlights.h
+main.o: main.cpp game.h blockinfo.h define.h chunk.h array3d.h mesh.h \
+ texture.h shader.h transformation.h matrix4.h vector3.h engine.h \
+ player.h rlights.h
 mesh.o: mesh.cpp mesh.h define.h texture.h shader.h transformation.h \
  matrix4.h vector3.h
 player.o: player.cpp player.h define.h vector3.h
