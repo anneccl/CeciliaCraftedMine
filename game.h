@@ -33,7 +33,6 @@ public:
 private:
     Mesh m_meshFloor;
     Chunk m_chunk;
-    Array2d<Chunk*> m_chunks;
 
     Texture m_textureBlue;
     Texture m_textureFloral;
