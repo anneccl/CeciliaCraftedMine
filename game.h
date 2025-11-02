@@ -44,7 +44,6 @@ private:
     bool m_fly = false;
     bool m_firstmouse = true;
     int m_LastmouseX, m_LastmouseY ;
-    bool m_fly =false;
 
 
     //void CubeMaker(Mesh::VertexData *vd, float dimension, Mesh& cube);
