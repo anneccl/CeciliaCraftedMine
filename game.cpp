@@ -1,7 +1,7 @@
 #include "game.h"
 #include <cmath>
 
-Game::Game() : m_player(Vector3f(0, 0, 0), 0, -90.f)
+Game::Game() : m_player(Vector3f(VIEW_DISTANCE, 6.7f, VIEW_DISTANCE), 0, -90.f)
 {
 }
 
