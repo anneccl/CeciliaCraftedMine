@@ -1,12 +1,22 @@
 #include "game.h"
 #include <cmath>
 
-Game::Game() : m_player(Vector3f(VIEW_DISTANCE, 6.7f, VIEW_DISTANCE), 0, -90.f)
+Game::Game() : m_player(Vector3f(VIEW_DISTANCE, 6.7f, VIEW_DISTANCE), 0, -90.f),
+m_chunkTest(true), 
+m_chunks((2*VIEW_DISTANCE + CHUNK_SIZE_X)/CHUNK_SIZE_X, (2*VIEW_DISTANCE + CHUNK_SIZE_Z)/CHUNK_SIZE_Z)
 {
+    m_chunks.Reset(nullptr);
 }
 
 Game::~Game()
 {
+    for (int cz = 0; cz < m_chunks.GetY(); ++cz) {
+        for (int cx = 0; cx < m_chunks.GetX(); ++cx) {
+            Chunk *c = m_chunks.Get(cx,cz);
+            delete c;
+            m_chunks.Set(cx, cz, nullptr);
+        }
+    }
 }
 
 void Game::Init()
@@ -20,30 +30,12 @@ void Game::DeInit()
 
 void Game::LoadResource()
 {
-    Mesh::VertexData *vd = new Mesh::VertexData[6]; // 6 vertex (1 quad, 2 triangles)
 
-    int count = 0;
-    const float size = 25.f;
-    const float nbRep = 50.f;
-
-    // Plancher
-    // 4-------------3
-    // | \           |
-    // |   \         |
-    // |     \       |
-    // |       \     |
-    // |         \   |
-    // |           \ |
-    // 1-------------2
-    vd[count++] = Mesh::VertexData(-size, -2.f, size, 0, 1, 0, 1, 1, 1, 0, 0);         // 1
-    vd[count++] = Mesh::VertexData(size, -2.f, size, 0, 1, 0, 1, 1, 1, nbRep, 0);      // 2
-    vd[count++] = Mesh::VertexData(-size, -2.f, -size, 0, 1, 0, 1, 1, 1, 0, nbRep);    // 4
-    vd[count++] = Mesh::VertexData(size, -2.f, size, 0, 1, 0, 1, 1, 1, nbRep, 0);      // 2
-    vd[count++] = Mesh::VertexData(size, -2.f, -size, 0, 1, 0, 1, 1, 1, nbRep, nbRep); // 3
-    vd[count++] = Mesh::VertexData(-size, -2.f, -size, 0, 1, 0, 1, 1, 1, 0, nbRep);    // 4
-
-    m_meshFloor.SetMeshData(vd, count);
-    delete[] vd;
+    for (int cz = 0; cz < m_chunks.GetY(); ++cz) 
+    {
+        for (int cx = 0; cx < m_chunks.GetX(); ++cx) 
+         m_chunks.Set(cx, cz, new Chunk(false));
+    }
 
     m_textureBlue.Load("checkerblue.png");
     m_textureFloral.Load("texturefloral.png");
@@ -52,16 +44,6 @@ void Game::LoadResource()
 
     rl::Vector3 lightPos = {0, CHUNK_SIZE_Y, 0};
     lights[0] = CreateLight(LIGHT_POINT, lightPos, rl::Vector3Zero(), rl::WHITE, m_shader);
-
-    
-    // 4-------------3
-    // | \           |
-    // |   \         |
-    // |     \       |
-    // |       \     |
-    // |         \   |
-    // |           \ |
-    // 1-------------2
 
 }
 
@@ -73,7 +55,17 @@ rl::Camera3D Game::Update(float elapsedTime)
 {
     // Votre code de logique de jeu qui doit être exécuté à chaque frame ici...
 
-    m_chunk.Update();
+    m_chunkTest.Update();
+
+    for (int cz = 0; cz < m_chunks.GetY(); ++cz) {
+        for (int cx = 0; cx < m_chunks.GetX(); ++cx) {
+            
+            Chunk* c = m_chunks.Get(cx, cz);
+            if (!c) continue;
+            c->Update();
+        }
+    }
+   
 
     Vector3f pos = m_player.GetPosition();
 
@@ -105,11 +97,22 @@ void Game::Render3D(float elapsedTime)
     static float gameTime = 0;
     gameTime += elapsedTime;
 
-    m_meshFloor.Render(m_textureDirt1, m_shader);
-
     Transformation t;
     t.ApplyTranslation(0, 10.f, 0);
-    m_chunk.Render(m_textureFloral, m_shader,t);
+    m_chunkTest.Render(m_textureFloral, m_shader,t);
+
+
+    for (int cz = 0; cz < m_chunks.GetY(); ++cz) {
+        for (int cx = 0; cx < m_chunks.GetX(); ++cx) {
+            
+           Chunk* c = m_chunks.Get(cx, cz);
+            if (!c) continue;
+
+            Transformation t;
+            t.ApplyTranslation( cx * CHUNK_SIZE_X, 0.0f, cz * CHUNK_SIZE_Z);
+            c->Render(m_textureDirt1, m_shader, t);
+        }
+    }
     
 }
 
@@ -157,60 +160,3 @@ void Game::MousePressEvent(const MOUSE_BUTTON &button, int x, int y)
 void Game::MouseReleaseEvent(const MOUSE_BUTTON &button, int x, int y)
 {
 }
-
-// void Game::CubeMaker(Mesh::VertexData *vd, float dimension, Mesh& cube)
-// {
-//     vd = new Mesh::VertexData[36];
-//     int count = 0;
-
-//     // Face avant du cube 
-//     vd[count++] = Mesh::VertexData(-dimension, -dimension, dimension, 0, 0, 1.f, 1.f, 1.f, 1.f, 0, 0); //1
-//     vd[count++] = Mesh::VertexData(dimension, -dimension, dimension, 0, 0, 1.f, 1.f, 1.f, 1.f, 1.f, 0); //2
-//     vd[count++] = Mesh::VertexData(-dimension, dimension, dimension, 0, 0, 1.f, 1.f, 1.f, 1.f, 0, 1.f); //4
-//     vd[count++] = Mesh::VertexData(dimension, -dimension, dimension, 0, 0, 1.f, 1.f, 1.f, 1.f, 1.f, 0); //2
-//     vd[count++] = Mesh::VertexData(dimension, dimension, dimension, 0, 0, 1.f, 1.f, 1.f, 1.f, 1.f, 1.f); //3
-//     vd[count++] = Mesh::VertexData(-dimension, dimension, dimension, 0, 0, 1.f, 1.f, 1.f, 1.f, 0, 1.f); //4
-
-//     // Face droite du cube 
-//     vd[count++] = Mesh::VertexData(dimension, -dimension, dimension, 1.f, 0, 0, 1.f, 1.f, 1.f, 0, 0); //1
-//     vd[count++] = Mesh::VertexData(dimension, -dimension, -dimension, 1.f, 0, 0, 1.f, 1.f, 1.f, 1.f, 0); //2
-//     vd[count++] = Mesh::VertexData(dimension, dimension, dimension, 1.f, 0, 0, 1.f, 1.f, 1.f, 0, 1.f); //4
-//     vd[count++] = Mesh::VertexData(dimension, -dimension, -dimension, 1.f, 0, 0, 1.f, 1.f, 1.f, 1.f, 0); //2
-//     vd[count++] = Mesh::VertexData(dimension, dimension, -dimension, 1.f, 0, 0, 1.f, 1.f, 1.f, 1.f, 1.f); //3
-//     vd[count++] = Mesh::VertexData(dimension, dimension, dimension, 1.f, 0, 0, 1.f, 1.f, 1.f, 0, 1.f); //4
-
-//     // Face gauche du cube 
-//     vd[count++] = Mesh::VertexData(-dimension, -dimension, -dimension, -1.f, 0, 0, 1.f, 1.f, 1.f, 0, 0); //1
-//     vd[count++] = Mesh::VertexData(-dimension, -dimension, dimension, -1.f, 0, 0, 1.f, 1.f, 1.f, 1.f, 0); //2
-//     vd[count++] = Mesh::VertexData(-dimension, dimension, -dimension, -1.f, 0, 0, 1.f, 1.f, 1.f, 0, 1.f); //4
-//     vd[count++] = Mesh::VertexData(-dimension, -dimension, dimension, -1.f, 0, 0, 1.f, 1.f, 1.f, 1.f, 0); //2
-//     vd[count++] = Mesh::VertexData(-dimension, dimension, dimension, -1.f, 0, 0, 1.f, 1.f, 1.f, 1.f, 1.f); //3
-//     vd[count++] = Mesh::VertexData(-dimension, dimension, -dimension, -1.f, 0, 0, 1.f, 1.f, 1.f, 0, 1.f); //4
-
-//     // Face arriere du cube 
-//     vd[count++] = Mesh::VertexData(-dimension, -dimension, -dimension, 0, 0, -1.f, 1.f, 1.f, 1.f, 0,   0); // 1
-//     vd[count++] = Mesh::VertexData(-dimension,  dimension, -dimension, 0, 0, -1.f, 1.f, 1.f, 1.f, 0,   1.f); // 4
-//     vd[count++] = Mesh::VertexData( dimension, -dimension, -dimension, 0, 0, -1.f, 1.f, 1.f, 1.f, 1.f, 0);   // 2
-//     vd[count++] = Mesh::VertexData( dimension, -dimension, -dimension, 0, 0, -1.f, 1.f, 1.f, 1.f, 1.f, 0);   // 2
-//     vd[count++] = Mesh::VertexData(-dimension,  dimension, -dimension, 0, 0, -1.f, 1.f, 1.f, 1.f, 0,   1.f); // 4
-//     vd[count++] = Mesh::VertexData( dimension,  dimension, -dimension, 0, 0, -1.f, 1.f, 1.f, 1.f, 1.f, 1.f); // 3
-
-//     // Face dessus du cube 
-//     vd[count++] = Mesh::VertexData(-dimension, dimension, dimension, 0, 1.f, 0, 1.f, 1.f, 1.f, 0, 0); //1
-//     vd[count++] = Mesh::VertexData(dimension, dimension, dimension, 0, 1.f, 0, 1.f, 1.f, 1.f, 1.f, 0); //2
-//     vd[count++] = Mesh::VertexData(-dimension, dimension, -dimension, 0, 1.f, 0, 1.f, 1.f, 1.f, 0, 1.f); //4
-//     vd[count++] = Mesh::VertexData(dimension, dimension, dimension, 0, 1.f, 0, 1.f, 1.f, 1.f, 1.f, 0); //2
-//     vd[count++] = Mesh::VertexData(dimension, dimension, -dimension, 0, 1.f, 0, 1.f, 1.f, 1.f, 1.f, 1.f); //3
-//     vd[count++] = Mesh::VertexData(-dimension, dimension, -dimension, 0, 1.f, 0, 1.f, 1.f, 1.f, 0, 1.f); //4
-
-//     // Face dessous du cube 
-//     vd[count++] = Mesh::VertexData(-dimension, -dimension,  dimension, 0, -1.f, 0, 1.f, 1.f, 1.f, 0,   0);   // 1
-//     vd[count++] = Mesh::VertexData(-dimension, -dimension, -dimension, 0, -1.f, 0, 1.f, 1.f, 1.f, 0,   1.f); // 4
-//     vd[count++] = Mesh::VertexData( dimension, -dimension,  dimension, 0, -1.f, 0, 1.f, 1.f, 1.f, 1.f, 0);   // 2
-//     vd[count++] = Mesh::VertexData( dimension, -dimension,  dimension, 0, -1.f, 0, 1.f, 1.f, 1.f, 1.f, 0);   // 2
-//     vd[count++] = Mesh::VertexData(-dimension, -dimension, -dimension, 0, -1.f, 0, 1.f, 1.f, 1.f, 0,   1.f); // 4
-//     vd[count++] = Mesh::VertexData( dimension, -dimension, -dimension, 0, -1.f, 0, 1.f, 1.f, 1.f, 1.f, 1.f); // 3
-    
-//     cube.SetMeshData(vd,count);
-//     delete vd;
-// }

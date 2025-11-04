@@ -14,6 +14,8 @@ public:
 
     void Set(int x, int y, const T& value);
     const T& Get(int x, int y) const;
+    int GetX() const;
+    int GetY() const;
 
     void Reset(const T& value);
 
@@ -69,6 +71,18 @@ template <class T>
 const T& Array2d<T>::Get(int x, int y) const
 {
     return m_blocks[GetIndex(x, y)];
+}
+
+template <class T>
+inline int Array2d<T>::GetX() const
+{
+    return m_x;
+}
+
+template <class T>
+inline int Array2d<T>::GetY() const
+{
+    return m_y;
 }
 
 template <class T>

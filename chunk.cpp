@@ -1,16 +1,33 @@
 #include "chunk.h"
 
-Chunk::Chunk() : m_blocks(CHUNK_SIZE_X, CHUNK_SIZE_Y, CHUNK_SIZE_Z)
+Chunk::Chunk(bool isChunkTest) : m_blocks(CHUNK_SIZE_X, CHUNK_SIZE_Y, CHUNK_SIZE_Z)
 {
     m_blocks.Reset(BTYPE_AIR);
-    for (int x = 0; x < CHUNK_SIZE_X; ++x)
+
+    if (isChunkTest == true)
     {
-        for (int z = 0; z < CHUNK_SIZE_Z; ++z)
+        for (int x = 0; x < CHUNK_SIZE_X; ++x)
         {
-            for (int y = 0; y < 32; ++y)
+            for (int z = 0; z < CHUNK_SIZE_Z; ++z)
             {
-                if (x % 2 == 0 && y % 2 == 0 && z % 2 == 0) // Affiche un cube sur 2
+                for (int y = 0; y < 32; ++y)
+                {
+                    if (x % 2 == 0 && y % 2 == 0 && z % 2 == 0) // Affiche un cube sur 2
+                        SetBlock(x, y, z, BTYPE_DIRT);
+                }
+            }
+        }
+    }
+    else
+    {
+        for (int x = 0; x < CHUNK_SIZE_X; ++x)
+        {
+            for (int z = 0; z < CHUNK_SIZE_Z; ++z)
+            {
+                for (int y = 0; y < 5; ++y)
+                {
                     SetBlock(x, y, z, BTYPE_DIRT);
+                }
             }
         }
     }
@@ -63,12 +80,12 @@ void Chunk::Update()
 
 void Chunk::Render(const Texture &texture, const Shader &shader, const Transformation &transformation)
 {
-    m_Mesh.Render(texture,shader,transformation);
+    m_Mesh.Render(texture, shader, transformation);
 }
 
 bool Chunk::IsDirty() const
 {
-    return m_isDirty ;
+    return m_isDirty;
 }
 
 void Chunk::AddBlockToMesh(Mesh::VertexData *vd, int &count, BlockType bt, int x, int y, int z)

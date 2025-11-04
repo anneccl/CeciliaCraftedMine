@@ -7,7 +7,7 @@
 class Chunk 
 {
 public:
-    Chunk();
+    Chunk(bool isChunkTest );
 
     void RemoveBlock(int x, int y, int z);
     void SetBlock(int x, int y, int z, BlockType type);

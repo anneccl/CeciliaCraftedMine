@@ -31,8 +31,9 @@ public:
     virtual void MouseReleaseEvent(const MOUSE_BUTTON &button, int x, int y);
 
 private:
-    Mesh m_meshFloor;
-    Chunk m_chunk;
+    //Mesh m_meshFloor;
+    Chunk m_chunkTest;
+    Array2d<Chunk*> m_chunks ;
 
     Texture m_textureBlue;
     Texture m_textureFloral;
@@ -46,8 +47,6 @@ private:
     bool m_firstmouse = true;
     int m_LastmouseX, m_LastmouseY ;
 
-
-    //void CubeMaker(Mesh::VertexData *vd, float dimension, Mesh& cube);
 };
 
 #endif /* GAME_H */
