@@ -224,7 +224,7 @@ void Engine::DoGameLoop()
     rl::BeginTextureMode(m_target[0]);
     {
         // rl::ClearBackground(rl::DARKGRAY);
-        rl::ClearBackground(rl::BLACK);
+        rl::ClearBackground(rl::WHITE);
 
         rl::BeginMode3D(camera);
         {

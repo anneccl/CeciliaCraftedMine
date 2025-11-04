@@ -119,6 +119,8 @@ void Game::Render3D(float elapsedTime)
 void Game::Render2D(float elapsedTime)
 {
     rl::DrawFPS(20, 20);
+    rl::DrawText("Bienvenue Toi",1000,1,2, rl::PINK);
+    
 }
 
 void Game::KeyPressEvent(unsigned char key)
