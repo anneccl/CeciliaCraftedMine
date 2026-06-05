@@ -1,4 +1,5 @@
 #include "player.h"
+#include <cmath>
 
 // https://learnopengl.com/Getting-started/Camera
 // https://learnopengl.com/code_viewer_gh.php?code=includes/learnopengl/camera.h

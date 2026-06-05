@@ -11,6 +11,7 @@
 #include "rlights.h"
 #include "shader.h"
 #include "texture.h"
+#include "textureatlas.h"
 
 class Game : public Engine
 {
@@ -35,6 +36,7 @@ private:
     Chunk m_chunkTest;
     Array2d<Chunk*> m_chunks ;
 
+    TextureAtlas m_textures;
     Texture m_textureBlue;
     Texture m_textureFloral;
     Texture m_textureDirt1;

@@ -30,6 +30,11 @@ void Game::DeInit()
 
 void Game::LoadResource()
 {
+    m_textures.AddTexture("checkerblue.png");
+    m_textures.AddTexture("texturefloral.png");
+    m_textures.AddTexture("texturedirt1.png");
+
+    m_textures.Generate(128);
 
     for (int cz = 0; cz < m_chunks.GetY(); ++cz) 
     {
