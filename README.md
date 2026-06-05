@@ -2,6 +2,12 @@
 
 Jeu voxel de type Minecraft, écrit en C++ avec Raylib.
 
+<img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/c68eea81-a7e8-4c5c-809f-3fe091e86657" />
+
+
+<img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/c1d9440c-cb06-44f9-90aa-fd8ce8aea580" />
+
+
 ## Aperçu
 Projet scolaire autour du développement de jeux : un monde en blocs (voxels) inspiré de Minecraft, avec son propre moteur de rendu 3D bâti sur Raylib. Le projet sert à explorer la 3D temps réel — découpage du monde en chunks, génération de maillages, shaders et physique du joueur.
 Le moteur et les bases du gameplay sont fonctionnels. Le contenu (types de blocs, génération du terrain, ambiance) continue d'évoluer.
